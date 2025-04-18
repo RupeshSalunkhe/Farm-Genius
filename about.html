@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Genius 🌱 | About Us</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* About Page Specific Styles */
+        .about-hero {
+            text-align: center;
+            padding: 5rem 1rem;
+        }
+        
+
+        .mission-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 3rem;
+            padding: 2rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-item {
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .team-member {
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .member-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-container glassmorphism">
+        <div class="nav-links">
+            <h1 class="gradient-text">Farm Genius</h1>
+            <div>
+                <a href="index.html">Home</a>
+                <a href="predict.html">Disease Predict</a>
+                <a href="crop.html">Crop Info</a>
+                <a href="contact.html">Contact</a>
+                <a href="about.html" class="active">About</a>
+            </div>
+        </div>
+    </nav>
+<br><br>
+    <!-- Main Content -->
+    <main class="about-main">
+        <section class="about-hero glassmorphism">
+            <h1 class="gradient-text">Revolutionizing Agriculture with AI</h1>
+            <p class="tagline">Empowering farmers through technology</p>
+        </section>
+
+        <!-- Mission Section -->
+        <section class="mission-section">
+            <div class="glassmorphism mission-card">
+                <i class="fas fa-bullseye fa-3x gradient-text"></i>
+                <h3> Our Mission</h3>
+                <p>Democratize access to agricultural expertise through AI-powered solutions</p>
+            </div>
+            <div class="glassmorphism mission-card">
+                <i class="fas fa-leaf fa-3x gradient-text"></i>
+                <h3>Our Vision</h3>
+                <p>Create sustainable farming practices through technological innovation</p>
+            </div>
+            <div class="glassmorphism mission-card">
+                <i class="fas fa-hand-holding-heart fa-3x gradient-text"></i>
+                <h3>Our Values</h3>
+                <p>Farmers first, sustainability, and technological responsibility</p>
+            </div>
+        </section>
+
+       
+
+        <!-- Team Section -->
+        <section class="glassmorphism team-section">
+            <h2 class="gradient-text text-center">Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member glassmorphism">
+                    <img src="/images/WhatsApp Image 2025-04-18 at 18.45.15_b892eb2f.jpg" alt="Team Member" class="member-photo">
+                    <h4>Sakshi Chavan</h4>
+                   
+                </div>
+                <div class="team-member glassmorphism">
+                    <img src="/images/WhatsApp Image 2025-04-18 at 18.47.23_da072fa7.jpg" alt="Team Member" class="member-photo">
+                    <h4>Pratik Yadav</h4>
+                    
+                </div>
+                <div class="team-member glassmorphism">
+                    <img src="/images/WhatsApp Image 2025-04-18 at 18.43.22_5502f19d.jpg" alt="Team Member" class="member-photo">
+                    <h4>Kalyani Zanjurne</h4>
+                    
+                </div>
+                <div class="team-member glassmorphism">
+                    <img src="/images/WhatsApp Image 2025-04-18 at 18.40.32_164c6258.jpg" alt="Team Member" class="member-photo">
+                    <h4>Rupesh Salunkhe</h4>
+                   
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="glassmorphism footer">
+        <!-- Same footer as previous pages -->
+    </footer>
+
+    <script>
+        // Animate statistics numbers
+        const animateNumbers = () => {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200;
+    
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-count');
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+    
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.innerText = target + (counter.getAttribute('data-count').endsWith('000') ? 'K+' : '+');
+                    }
+                };
+    
+                updateCount();
+            });
+        };
+    
+        // Initialize when in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateNumbers();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+    
+        document.querySelectorAll('.stats-section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
