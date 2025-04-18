@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Genius 🌱 | Contact Us</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Contact Page Specific Styles */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            padding: 2rem;
+        }
+
+        .contact-info {
+            padding: 2rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-map {
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        .social-contact {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-container glassmorphism">
+        <div class="nav-links">
+            <h1 class="gradient-text">Farm Genius</h1>
+            <div>
+                <a href="index.html">Home</a>
+                <a href="predict.html">Disease Predict</a>
+                <a href="crop.html">Crop Info</a>
+                <a href="contact.html" class="active">Contact</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="contact-main">
+        <section class="glassmorphism section-header">
+            <h2 class="gradient-text">Get in Touch</h2>
+            <p>We're here to help with your agricultural needs</p>
+        </section>
+
+        <div class="contact-container">
+            <!-- Contact Information -->
+            <div class="glassmorphism contact-info">
+                <h3>Contact Information</h3>
+                <div class="contact-details">
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt gradient-text"></i>
+                        <p>Dnyanshree Institute oF Engineering & technology<br>Sajjangadh Road<br>Satara, IN 415013</p>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-phone gradient-text"></i>
+                        <p>+91 9322430939<br>+91 9404927299</p>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-envelope gradient-text"></i>
+                        <p>rupeshSalunkhe528@gmail.com<br>pratiky366@gmail.com</p>
+                    </div>
+                </div>
+
+                <div class="social-contact">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <form class="glassmorphism contact-form" id="contactForm">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="gradient-btn">
+                    Send Message <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+        <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLRk-zINLCjW0YAy6Wxw8HEhOSsaTCWoY&callback=initMap"
+        async
+        defer
+      ></script>
+  
+    </main>
+
+    <!-- Footer -->
+    <footer class="glassmorphism footer">
+        <!-- Same footer as previous pages -->
+    </footer>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Add your form submission logic here
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+
+            // Example using Fetch API
+            fetch('/send-message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Message sent successfully!');
+                document.getElementById('contactForm').reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error sending message');
+            });
+        });
+    </script>
+</body>
+</html>
