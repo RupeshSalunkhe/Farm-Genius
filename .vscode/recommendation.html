@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Genius 🌱 | Crop Prediction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00ff88;
+            --secondary: #60efff;
+            --bg: #0a192f;
+            --card-bg: rgba(10, 25, 47, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: white;
+        }
+
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .gradient-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+            color: var(--bg);
+            font-weight: 600;
+        }
+
+        .gradient-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            z-index: 1000;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1.5rem;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Prediction Section */
+        .predict-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 6rem 10% 2rem;
+        }
+
+        .predict-container {
+            width: 100%;
+            max-width: 700px;
+            padding: 3rem;
+        }
+
+        .predict-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .predict-form h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .predict-form input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .predict-form input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .predict-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 3rem 10%;
+            background: linear-gradient(to top, rgba(10, 25, 47, 0.9), var(--bg));
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin: 0.8rem 0;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icons a {
+            color: white;
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .predict-section {
+                padding-top: 8rem;
+            }
+            
+            .predict-container {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-container glassmorphism">
+        <div class="nav-links">
+            <h1 class="gradient-text">Farm Genius</h1>
+            <div>
+                <a href="index.html">Home</a>
+                <a href="predict.html" class="active">Predict</a>
+                <a href="crop.html">Crop Info</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Prediction Section -->
+    <section class="predict-section">
+        <form action="/predict" method="POST" class="glassmorphism predict-container">
+            <div class="predict-form">
+                <h2 class="gradient-text">Crop Recommendation</h2>
+                <input type="number" id="Nitrogen" name="Nitrogen" placeholder="Nitrogen (N) value" required>
+                <input type="number" id="Phosphorus" name="Phosphorus" placeholder="Phosphorus (P) value" required>
+                <input type="number" id="Potassium" name="Potassium" placeholder="Potassium (K) value" required>
+                <input type="number" id="Temperature" name="Temperature" placeholder="Temperature (°C)" required>
+                <input type="number" id="Humidity" name="Humidity" placeholder="Humidity (%)" required>
+                <input type="number" id="pH" name="Ph" placeholder="pH value" required>
+                <input type="number" id="Rainfall" name="Rainfall" placeholder="Rainfall (mm)" required>
+
+                <button type="submit" class="gradient-btn">
+                    <i class="fas fa-seedling"></i> Predict Crop
+                </button>
+            </div>
+        </form>
+    </section>
+
+    
+
+    <script>
+        // Navigation scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.nav-container');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
