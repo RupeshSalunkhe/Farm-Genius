@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Genius 🌱 | Crop Information</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Additional Crop Page Styles */
+        .crop-card {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .crop-card::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .crop-card.selected {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--primary);
+        }
+
+        .crop-card.selected::after {
+            transform: scaleX(1);
+        }
+
+        .selected-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 5px;
+            backdrop-filter: blur(5px);
+        }
+
+        .selected-item button {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            padding: 0 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .selected-item button:hover {
+            color: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation --><nav class="nav-container glassmorphism">
+        <div class="nav-links">
+            <h1 class="gradient-text">Farm Genius</h1>
+            <div>
+                <a href="#home" class="active">Home</a>
+                <a href="predict.html">Disease Predict</a>
+                <a href="crop.html">Crop Info</a>
+                <a href="contact.html">Contact</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="crop-main">
+        <section class="glassmorphism selection-panel">
+            <div class="selection-header">
+                <h2 class="gradient-text">Select Your Crops</h2>
+                <p class="selection-counter">Selected: <span id="count">0/8</span></p>
+            </div>
+            
+            <div class="selected-list glassmorphism" id="selectedList"></div>
+        </section>
+
+        <div class="crop-grid" id="cropGrid">
+            <!-- Crops populated by JavaScript -->
+        </div>
+
+        <button class="gradient-btn save-btn" onclick="saveSelection()">
+            Save Selection <i class="fas fa-seedling"></i>
+        </button>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glassmorphism footer">
+        <!-- Footer content from previous answer -->
+    </footer>
+
+    <script>
+        const crops = [ { name: 'Rice', img: 'https://img.icons8.com/color/96/rice-bowl.png', info: ['Grows in tropical regions.', 'Needs heavy rainfall.', 'Best grown in clayey soil.', 'Harvested during Kharif season.'] },
+  { name: 'Maize', img: 'https://img.icons8.com/color/96/corn.png', info: ['Prefers warm weather.', 'Grows in loamy soil.', 'Used for human and animal consumption.', 'Can grow in both Kharif and Rabi seasons.'] },
+  { name: 'Jute', img: 'https://img.icons8.com/color/96/wheat.png', info: ['Grows in warm and humid climates.', 'Needs alluvial soil.', 'Harvested during monsoon.', 'Used for making gunny bags, mats, ropes.'] },
+  { name: 'Cotton', img: 'https://img.icons8.com/color/96/cotton.png', info: ['Needs black or alluvial soil.', 'Warm climate with moderate rainfall.', 'Harvested in dry season.', 'Used in textile industry.'] },
+  { name: 'Coconut', img: 'https://img.icons8.com/color/96/coconut.png', info: ['Grows in coastal areas.', 'Needs sandy soil.', 'Requires abundant water.', 'Used for oil and food.'] },
+  { name: 'Papaya', img: 'https://img.icons8.com/color/96/papaya.png', info: ['Requires tropical climate.', 'Grows in loamy soil.', 'Harvested year-round.', 'Rich in vitamins.'] },
+  { name: 'Orange', img: 'https://img.icons8.com/color/96/orange.png', info: ['Grows in sub-tropical climates.', 'Needs sandy loam soil.', 'Rich in vitamin C.', 'Harvested in winter.'] },
+  { name: 'Apple', img: 'https://img.icons8.com/color/96/apple.png', info: ['Grows in temperate climates.', 'Needs well-drained loamy soil.', 'Harvested in autumn.', 'Rich in fiber and vitamins.'] },
+  { name: 'Muskmelon', img: 'https://img.icons8.com/color/96/melon.png', info: ['Requires warm climate.', 'Sandy loam soil preferred.', 'Harvested in summer.', 'High water content fruit.'] },
+  { name: 'Watermelon', img: 'https://img.icons8.com/color/96/watermelon.png', info: ['Grows in warm climate.', 'Needs sandy loam soil.', 'Harvested in summer.', 'Juicy summer fruit.'] },
+  { name: 'Grapes', img: 'https://img.icons8.com/color/96/grapes.png', info: ['Requires moderate climate.', 'Grows in sandy and loamy soil.', 'Used for wine and juice production.', 'Rich in antioxidants.'] },
+  { name: 'Mango', img: 'https://img.icons8.com/color/96/mango.png', info: ['Grows in tropical climates.', 'Needs well-drained soil.', 'Harvested in summer.', 'Known as the king of fruits.'] },
+  { name: 'Banana', img: 'https://img.icons8.com/color/96/banana.png', info: ['Requires warm climate.', 'Needs rich loamy soil.', 'Harvested year-round.', 'Good source of energy.'] },
+  { name: 'Pomegranate', img: 'https://img.icons8.com/color/96/pomegranate.png', info: ['Grows in dry climate.', 'Needs sandy loam soil.', 'Harvested in winter.', 'Rich in antioxidants.'] },
+  { name: 'Lentil', img: 'images/split-red-lentil.png', info: ['Grows in cool season.', 'Needs well-drained soil.', 'Rich in proteins.', 'Used as pulses.'] },
+  { name: 'Blackgram', img: 'images/blackgram.jpg', info: ['Grows in tropical climate.', 'Needs loamy soil.', 'Good source of protein.', 'Used in dals and curries.'] },
+  { name: 'Mungbean', img: 'images/mungbean.jpg', info: ['Grows in warm climate.', 'Prefers sandy loam soil.', 'High in protein.', 'Used in sprouts and dishes.'] },
+  { name: 'Mothbeans', img: 'images/mothbeans.jpg', info: ['Grows in dry areas.', 'Needs sandy soil.', 'Harvested in kharif season.', 'Used as dal and fodder.'] },
+  { name: 'Pigeonpeas', img: 'images/Pigeonpeas.png', info: ['Grows in warm climate.', 'Needs well-drained loamy soil.', 'Rich in protein.', 'Used in sambar and dals.'] },
+  { name: 'Kidneybeans', img: 'images/Kidneybeans.jpg', info: ['Grows in warm climate.', 'Loamy soil preferred.', 'Rich in protein and iron.', 'Used in curries and salads.'] },
+  { name: 'Chickpea', img: 'https://img.icons8.com/color/96/chickpeas.png', info: ['Grows in dry climate.', 'Requires sandy loam soil.', 'Rich in protein.', 'Used in chana dishes.'] },
+  { name: 'Coffee', img: 'https://img.icons8.com/color/96/coffee.png', info: ['Grows in tropical climate.', 'Needs hilly areas with good rainfall.', 'Harvested in winter.', 'Used in beverages worldwide.'] }
+ ];
+
+        const cropGrid = document.getElementById('cropGrid');
+        const selectedList = document.getElementById('selectedList');
+        const countDisplay = document.getElementById('count');
+        let selectedCrops = [];
+
+        function renderCrops() {
+            crops.forEach(crop => {
+                const card = document.createElement('div');
+                card.classList.add('crop-card', 'glassmorphism');
+                card.innerHTML = `
+                    <img src="${crop.img}" alt="${crop.name}">
+                    <div class="crop-name">${crop.name}</div>
+                `;
+                card.addEventListener('click', () => toggleSelect(crop, card));
+                cropGrid.appendChild(card);
+            });
+        }
+
+        // ... rest of the JavaScript functions remain unchanged ...
+        function toggleSelect(crop, cardElement) {
+            const index = selectedCrops.findIndex(item => item.name === crop.name);
+            if (index > -1) {
+                selectedCrops.splice(index, 1);
+                cardElement.classList.remove('selected');
+            } else {
+                if (selectedCrops.length >= 8) {
+                    alert("You can select up to 8 crops only.");
+                    return;
+                }
+                selectedCrops.push(crop);
+                cardElement.classList.add('selected');
+            }
+            updateSelectedList();
+        }
+
+        function updateSelectedList() {
+            selectedList.innerHTML = '';
+            selectedCrops.forEach(crop => {
+                const item = document.createElement('div');
+                item.classList.add('selected-item');
+                item.innerHTML = `
+                    <span>${crop.name}</span>
+                    <button onclick="removeCrop('${crop.name}')">&times;</button>
+                `;
+                selectedList.appendChild(item);
+            });
+            countDisplay.textContent = `(${selectedCrops.length}/8)`;
+        }
+
+        function removeCrop(name) {
+            selectedCrops = selectedCrops.filter(crop => crop.name !== name);
+            Array.from(cropGrid.children).forEach(card => {
+                if (card.querySelector('.crop-name').textContent === name) {
+                    card.classList.remove('selected');
+                }
+            });
+            updateSelectedList();
+        }
+
+        function saveSelection() {
+            localStorage.setItem('selectedCrops', JSON.stringify(selectedCrops));
+            window.location.href = 'infodetails.html';
+        }
+
+        renderCrops();
+    </script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Genius 🌱 | Crop Details</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Additional Details Page Styles */
+        .crop-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .detail-card {
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .crop-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .crop-image {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin: 0 auto 1rem;
+            display: block;
+        }
+
+        .info-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-list li {
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .info-list li::before {
+            content: "🌱";
+            position: absolute;
+            left: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .back-button {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-container glassmorphism">
+        <div class="nav-links">
+            <h1 class="gradient-text">Farm Genius</h1>
+            <div>
+                <a href="index.html">Home</a>
+                <a href="predict.html">Disease Predict</a>
+                <a href="crop.html">Crop Info</a>
+                <a href="contact.html">Contact</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="details-main">
+        <a href="crop.html" class="gradient-btn back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+
+        <div class="glassmorphism section-header">
+            <h2 class="gradient-text">Selected Crops Details</h2>
+            <p>Detailed information about your selected crops</p>
+        </div>
+
+        <div id="selectedCropsContainer" class="crop-detail-grid"></div>
+
+        <div class="action-buttons">
+            <button class="gradient-btn" onclick="window.location.href='crop.html'">
+                <i class="fas fa-redo"></i> Start Again
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glassmorphism footer">
+        <!-- Same footer as previous pages -->
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const selectedCrops = JSON.parse(localStorage.getItem('selectedCrops')) || [];
+            const container = document.getElementById('selectedCropsContainer');
+
+            if(selectedCrops.length === 0) {
+                container.innerHTML = `
+                    <div class="glassmorphism no-selection">
+                        <h3>No crops selected!</h3>
+                        <p>Please go back and select crops to view details</p>
+                        <button class="gradient-btn" onclick="window.location.href='crop.html'">
+                            Select Crops Now
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = selectedCrops.map(crop => `
+                <div class="detail-card glassmorphism">
+                    <div class="crop-header">
+                        <img src="${crop.img}" alt="${crop.name}" class="crop-image">
+                        <h3 class="gradient-text">${crop.name}</h3>
+                    </div>
+                    <ul class="info-list">
+                        ${crop.info.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </div>
+            `).join('');
+        });
+
+        function clearSelection() {
+            localStorage.removeItem('selectedCrops');
+            window.location.href = 'crop.html';
+        }
+    </script>
+</body>
+</html>
