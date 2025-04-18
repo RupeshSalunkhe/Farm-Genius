@@ -2,10 +2,110 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=<>, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Genius 🌱 | Smart Farming Solutions</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Image Optimization Styles */
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            padding-top: 15px;
+            height: auto;
+            border-radius: 15px;
+            object-fit: cover;
+        }
+        .hero-image{
+            padding-top: 100px;
+        }
+        
+        /* Responsive Image Container */
+        .image-container {
+            padding: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+            
+        }
+        
+        @media (max-width: 768px) {
+            .hero-image img {
+                max-width: 300px;
+            }
+        }
+    </style>
 </head>
 <body>
-    
+    <!-- Navigation -->
+    <nav class="nav-container glassmorphism">
+        <div class="nav-links">
+            <h1 class="gradient-text">Farm Genius</h1>
+            <div>
+                <a href="#home" class="active">Home</a>
+                <a href="predict.html">Disease Predict</a>
+                <a href="crop.html">Crop Info</a>
+                <a href="contact.html">Contact</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="gradient-text">Cultivate Smarter,<br>Harvest Better</h1>
+            <p class="tagline">AI-powered agricultural insights for the modern farmer</p>
+            <div class="cta-buttons">
+                <a href="predict.html" class="gradient-btn">Detect Disease Now</a>
+                <a href="crop.html" class="gradient-btn outline">Explore Crops</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="glassmorphism image-container">
+                <!-- Optimized image with width and height attributes -->
+                <img src="images/WhatsApp Image 2025-04-18 at 20.19.20_38c08aae.jpg" 
+                     alt="Farm AI Concept" 
+                     width="500" 
+                     height="333"
+                     loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <section class="predict-section section" id="predict">
+        <div class="glassmorphism predict-container">
+            <h1 class="gradient-text">Ready To Predict</h1>
+            <h2 class="gradient-text">Crop Recommendation System</h2>
+            <p class="predict-description">
+                Our AI-powered recommendation system analyzes soil conditions, weather patterns, and historical crop data to provide optimal planting suggestions for your farmland.
+            </p>
+            <div class="predict-btn-container">
+                <a href="http://127.0.0.1:5000" class="gradient-btn predict-btn">
+                    <i class="fas fa-seedling"></i> Predict Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="features">
+        <div class="feature-card glassmorphism">
+            <i class="fas fa-robot fa-3x gradient-text"></i>
+            <h3>AI Disease Detection</h3>
+            <p>Instant plant health analysis using advanced machine learning</p>
+        </div>
+        <div class="feature-card glassmorphism">
+            <i class="fas fa-seedling fa-3x gradient-text"></i>
+            <h3>Crop Encyclopedia</h3>
+            <p>Comprehensive database of agricultural knowledge</p>
+        </div>
+        <div class="feature-card glassmorphism">
+            <i class="fas fa-comments fa-3x gradient-text"></i>
+            <h3>Smart Assistant</h3>
+            <p>24/7 AI-powered farming consultation</p>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
 </body>
 </html>
