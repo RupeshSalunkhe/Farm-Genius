@@ -13,10 +13,25 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         h1 {
             margin: 1rem auto 0.5rem;
+        }
+
+        #cancelButton {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #ff4c4c;
+            transition: transform 0.2s ease;
+        }
+
+        #cancelButton:hover {
+            transform: scale(1.2);
         }
 
         #chat {
@@ -87,14 +102,21 @@
     </style>
 </head>
 <body>
+
+
+    <!-- Page Title -->
     <h1>🚀 Farm Assist AI Chatbot</h1>
+
+    <!-- Chat Container -->
     <div id="chat"></div>
 
+    <!-- Input Area -->
     <div id="inputArea">
         <input type="text" id="userInput" placeholder="Ask something futuristic..." />
         <button onclick="sendMessage()">Send</button>
     </div>
 
+    <!-- JavaScript for chat functionality -->
     <script>
         async function sendMessage() {
             const input = document.getElementById('userInput');
