@@ -496,6 +496,61 @@ input:focus, textarea:focus {
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
 }
+/* Chatbot Section */
+.chatbot-section {
+    padding: 5rem 10%;
+    text-align: center;
+}
+
+.chatbot-container {
+    padding: 4rem 2rem;
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+.chatbot-container h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.chatbot-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.chatbot-cta .gradient-btn {
+    padding: 1.2rem 3rem;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.chatbot-cta .gradient-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+}
+
+@media (max-width: 768px) {
+    .chatbot-container {
+        padding: 2rem 1rem;
+    }
+    
+    .chatbot-container h2 {
+        font-size: 2rem;
+    }
+    
+    .chatbot-description {
+        font-size: 1rem;
+    }
+}
 
 @media (max-width: 768px) {
     .predict-container {
