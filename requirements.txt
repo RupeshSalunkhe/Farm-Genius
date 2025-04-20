@@ -1,7 +1,6 @@
 Flask==3.1.0
 numpy==2.2.5
 Pillow==11.2.1
-protobuf==6.30.2
 waitress==3.0.2
 scikit-learn==1.6.0
 google.generativeai
