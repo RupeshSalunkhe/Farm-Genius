@@ -7,6 +7,7 @@ scikit-learn==1.6.0
 google.generativeai
 python-dotenv==1.0.1
 pip==25.0.1
+protobuf==5.26.1
 
 
 
